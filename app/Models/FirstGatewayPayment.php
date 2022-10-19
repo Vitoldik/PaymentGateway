@@ -14,7 +14,6 @@ class FirstGatewayPayment extends Model implements PaymentGatewayContract
     protected $table = 'first_gateway_payments';
     protected $primaryKey = 'payment_id';
     public $incrementing = false;
-    const CREATED_AT = 'created_at';
 
     protected $fillable = [
         'merchant_id',
@@ -23,7 +22,6 @@ class FirstGatewayPayment extends Model implements PaymentGatewayContract
         'amount',
         'amount_paid',
         'timestamp',
-        'sign',
         'created_at'
     ];
 
@@ -40,7 +38,7 @@ class FirstGatewayPayment extends Model implements PaymentGatewayContract
     public function createPayment(array $validated) {
         $timestamp = TimeUtils::timestampToDateTime($validated['timestamp']);
         $validated['timestamp'] = $timestamp;
-        $validated['created_at'] = now();
+        unset($validated['sign']);
 
         $this->query()->create($validated)->save();
     }

@@ -13,7 +13,6 @@ class SecondGatewayPayment extends Model implements PaymentGatewayContract
     protected $table = 'second_gateway_payments';
     protected $primaryKey = 'invoice';
     public $incrementing = false;
-    const CREATED_AT = 'created_at';
 
     protected $fillable = [
         'project',
@@ -21,7 +20,6 @@ class SecondGatewayPayment extends Model implements PaymentGatewayContract
         'status',
         'amount',
         'amount_paid',
-        'rand',
         'created_at'
     ];
 
@@ -35,6 +33,7 @@ class SecondGatewayPayment extends Model implements PaymentGatewayContract
     }
 
     public function createPayment(array $validated) {
+        unset($validated['rand']);
         $this->query()->create($validated)->save();
     }
 
