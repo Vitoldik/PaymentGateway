@@ -12,7 +12,7 @@ class FirstGatewayPayment extends Model
     protected $table = 'first_gateway_payments';
     protected $primaryKey = 'payment_id';
     public $incrementing = false;
-    public $timestamps = false;
+    const CREATED_AT = 'created_at';
 
     protected $fillable = [
         'merchant_id',
@@ -29,4 +29,9 @@ class FirstGatewayPayment extends Model
         'timestamp' => 'datetime',
         'created_at' => 'datetime'
     ];
+
+    // Убираем запись UPDATED_AT в базу
+    public function getUpdatedAtColumn() {
+        return null;
+    }
 }
