@@ -32,6 +32,10 @@ class PaymentAction implements PaymentActionContract {
         // Обработка нового платежа
         if ($status == 'new') {
             if (!$payment) {
+                // Проверяем лимит
+                if (PaymentUtils::isLimitReached($model, $merchantName))
+                    return ResponseUtils::getJsonResponse(true, 'Лимит платежей на сегодня превышен, возвращайтесь завтра :c!');
+
                 $model->createPayment($validated);
                 return ResponseUtils::getJsonResponse(true, 'Платеж добавлен!');
             }
