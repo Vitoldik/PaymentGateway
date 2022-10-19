@@ -16,7 +16,7 @@ class PaymentFormRequest extends FormRequest {
         $contentType = request()->header('content-type');
 
         // Ищем мерчант по content-type
-        $this->merchantName = $contentType == 'application/json' ? 'first_merchant' : ($contentType == 'multipart/form-data' ? 'second_merchant' : null);
+        $this->merchantName = $contentType == 'application/json' ? 'first_merchant' : (str_contains($contentType, 'multipart/form-data') ? 'second_merchant' : null);
 
         // Если мерчант не найден или его нет в конфиге - выбрасываем исключение
         if (!$this->merchantName || !config()->has('payment.' . $this->merchantName))

@@ -7,6 +7,10 @@ return [
         'id' => env('FIRST_MERCHANT_ID'),
         'key' => env('FIRST_MERCHANT_KEY'),
         'limit' => env('FIRST_MERCHANT_LIMIT'),
+        'sign' => [
+            'hash' => env('FIRST_MERCHANT_HASH'),
+            'separator' => env('FIRST_MERCHANT_HASH_SEPARATOR')
+        ],
         'validationRules' => [
             'merchant_id' => 'required|integer',
             'payment_id' => 'required|integer',
@@ -25,6 +29,10 @@ return [
         'id' => env('SECOND_MERCHANT_ID'),
         'key' => env('SECOND_MERCHANT_KEY'),
         'limit' => env('SECOND_MERCHANT_LIMIT'),
+        'sign' => [
+            'hash' => env('SECOND_MERCHANT_HASH'),
+            'separator' => env('SECOND_MERCHANT_HASH_SEPARATOR')
+        ],
         'validationRules' => [
             'project' => 'required|integer',
             'invoice' => 'required|integer',

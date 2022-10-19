@@ -4,9 +4,13 @@ namespace App\Utilities;
 
 class PaymentUtils {
 
-    public static function generateSign($params, $separator, $key, $hash): string {
+    public static function generateSign($params, $merchantName): string {
         ksort($params);
-        unset($params['sign']);
-        return hash($hash, join($separator, array_keys($params)) . $key);
+
+        if ($merchantName == 'first_merchant')
+            unset($params['sign']);
+
+        return hash(config("payment.${merchantName}.sign.hash"),
+            join(config("payment.${merchantName}.sign.separator"), array_keys($params)) . config("payment.${merchantName}.key"));
     }
 }
